@@ -1,42 +1,35 @@
 package exam;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Map<String, Integer> citiesDistances = new HashMap<>();
-        try (Scanner in = new Scanner(System.in)){
-            putCityName(citiesDistances, in);
-            putCityDistance(citiesDistances, in);
-
-//            System.out.println(citiesDistances);
-
-            String name = in.next();
-            String nextName = in.next();
-            System.out.println(citiesDistances.get(name + "-" + nextName));
-        }
-    }
-
-    private static void putCityName(Map<String, Integer> citiesDistances, Scanner in) {
-        List<String> cityNames = new ArrayList<>();
-        while (true) {
-            String next = in.next();
-            // ###表示输入完毕
-            if ("###".equals(next)) break;
-            cityNames.add(next);
-        }
-
-        for (String cityName : cityNames) {
-            for (String nextCityName : cityNames) {
-                citiesDistances.put(cityName + "-" + nextCityName, null);
+        try (Scanner in = new Scanner(System.in)) {
+            // 初始化城市名
+            List<String> cityNames = new ArrayList<>();
+            while (true) {
+                String next = in.next();
+                if ("###".equals(next)) break;
+                cityNames.add(next);
             }
-        }
-    }
 
-    private static void putCityDistance(Map<String, Integer> citiesDistances, Scanner in) {
-        Set<String> cities = citiesDistances.keySet();
-        for (String city : cities) {
-            citiesDistances.put(city, in.nextInt());
+            // 距离的二维数组
+            int n = cityNames.size();
+            int[][] distances = new int[n][n];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    distances[i][j] = in.nextInt();
+                }
+            }
+
+            // 找出城市距离
+            String city = in.next();
+            String nextCity = in.next();
+            int i = cityNames.indexOf(city);
+            int j = cityNames.indexOf(nextCity);
+            System.out.println(distances[i][j]);
         }
     }
 }
