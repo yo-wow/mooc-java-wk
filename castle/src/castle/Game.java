@@ -81,7 +81,10 @@ public class Game {
             String line = in.nextLine();
             String[] words = line.split(" ");
             String operate = words[0];
-            String direction = words[1];
+            String direction = "";
+            if (words.length > 1) {
+                direction = words[1];
+            }
             Handler handler = this.handlers.get(operate);
             if (null != handler) {
                 handler.handle(direction);
