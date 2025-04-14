@@ -9,9 +9,14 @@ public class Game {
     private Map<String, Handler> handlers = new HashMap<>();
 
     public Game() {
-        handlers.put("go", new HandlerGo(this));
-        handlers.put("help", new HandlerHelp(this));
-        handlers.put("bye", new HandlerBye(this));
+        handlers.put("go", new Handler() {
+            @Override
+            void handle(String word) {
+                goRoom(word);
+            }
+        });
+        handlers.put("help", new HandlerHelp());
+        handlers.put("bye", new HandlerBye());
         createRooms();
     }
 
