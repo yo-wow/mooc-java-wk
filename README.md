@@ -1,5 +1,6 @@
 > [Markdown基本语法](https://markdown.com.cn/basic-syntax/)
-> [面向对象程序设计——Java语言](https://www.icourse163.org/learn/ZJU-1001542001?tid=1471600445#/learn/content)
+> <br>
+> [面向对象程序设计（翁恺）——Java语言](https://www.icourse163.org/learn/ZJU-1001542001?tid=1471600445#/learn/content)
 ## 1. 类与对象
 - 类定义了对象拥有哪些属性（成员变量）和操作（成员函数/方法）
 - 对象是按照类的定义制造出的实体
@@ -95,4 +96,25 @@
     > 因为对象调用会优先调用子类的函数
   - 子类的构造函数，必须声明父类可能抛出的全部异常
     > 因为子类对象在构造时会先调用父类的构造函数
-- 
+- 流
+  - 单向的（ stream 翻译为小溪）
+  - 流要么是输入流，要么是输出流 
+  - 二进制数据
+    - 采用InputStream/OutputStream
+      - 基于字节来操作流
+  - 过滤器流
+    - 使用过滤器流的叠加可以支持更复杂的流操作，而不仅仅是字节
+      ```java
+      DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream("demo.dat")));
+      out.write(123456); // 直接输出int到文件中
+      out.close();
+  - 文本数据
+    - 采用Reader/Writer
+      - 基于Unicode来操作流
+      - 实际很少有Unicode编码的文件，通常都是国标码或者Unicode(UTF-8)或其他编码，所以通常需要通过过滤器流叠加Stream二进制流来操作
+        - 在读取到二进制文件**后**，会通过二进制流外层的流自动从Unicode转换为当前系统编码，但通常会进行手动指定，防止乱码
+  - 流的应用
+    - Socket
+      - 通过[nc -l 端口号](link-file%2Fnc.md)模拟建立Socket
+  - 对象串行化
+    - Serializable接口
